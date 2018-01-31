@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 
 import SearchBar from './components/search_bar';  //import SearchBar component from search_bar.js
 
-const API_KEY = 'AIzaSyC0U64QRQN5nImi-mejkSPtmLOhOa6w4KE';
+const API_KEY = 'YOUTUBE_API_KEY';
 
 //Create a new component. This component should produce some HTML.
 const App = function(){
