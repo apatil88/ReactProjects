@@ -7,13 +7,25 @@ import React, { Component } from 'react';
 
 //Class-based Component
 class SearchBar extends Component {
-    render(){
-        return <input onChange={this.onInputChange}/>
+
+    constructor(props){
+        super(props);
+
+        this.state = { term : ''};   
+
     }
 
-    onInputChange(event){
-        console.log(event.target.value);
+    render(){
+        return (
+            <div>
+                <input 
+                    value={this.state.term}  //Controlled component - input receives its value from state
+                    onChange={event => this.setState({term : event.target.value})}
+                />
+            </div>
+        );
     }
+
 }
 
 export default SearchBar;
