@@ -5,7 +5,12 @@ import VideoListItem from './video_list_item'
 const VideoList = (props) => {
 
     const videoItems = props.videos.map((video) => {
-        return <VideoListItem key= { video.etag } video={ video } />  //key property to uniquely identify each element in the list
+    return (
+        <VideoListItem 
+            onVideoSelect = { props.onVideoSelect }
+            key= { video.etag } 
+            video={ video } /> 
+    ) //key property to uniquely identify each element in the list
     });
 
     return (
