@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
 import YTSearch from 'youtube-api-search'
@@ -6,7 +7,7 @@ import SearchBar from './components/search_bar';    //import SearchBar component
 import VideoList from './components/video_list';    //import VideoList component from video_list.js
 import VideoDetail from './components/video_detail'; //import VideoDetail component from video_detail.js
 
-const API_KEY = 'YOUTUBE_API_KEY';
+const API_KEY = 'AIzaSyA8nyLWrBhwWncslVJlwJhrGe2hI5_Prhs';
 
 
 /*
@@ -31,8 +32,12 @@ class App extends Component{
             selectedVideo : null 
         };
 
+        this.videoSearch('surfboards');
+    }
+
+    videoSearch(term){
         //When the app first loads, user sees a list of videos
-        YTSearch({key : API_KEY, term : 'surfboards'}, (videos) => {
+        YTSearch({key : API_KEY, term : term}, (videos) => {
             this.setState({
                 videos: videos,
                 selectedVideo : videos[0]      //Show a video when the app first boots up
@@ -44,9 +49,11 @@ class App extends Component{
     render(){
         //Pass props to VideoList component
         //Pass the selected video to the VideoDetail component
+        //Pass search term callback as a prop to SearchBar component
+        const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 500);  //Throttle the search input requests
         return (
             <div>
-                <SearchBar />
+                <SearchBar onSearchTermChange= { videoSearch } />
                 <VideoDetail video={ this.state.selectedVideo } />
                 <VideoList 
                     onVideoSelect={ selectedVideo => this.setState({selectedVideo}) }
