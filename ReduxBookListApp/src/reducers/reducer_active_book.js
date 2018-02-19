@@ -3,7 +3,7 @@ export default function(state = null, action){  //When the app first boots up an
 
     switch(action.type){
         case 'BOOK_SELECTED':
-            return action.payload;
+            return action.payload;  //payload here is the selected book
     }
     return state;  //base case : if we don't care about the action, return the state
 }

@@ -29,7 +29,7 @@ class BookList extends Component {
     }
 }
 
-function mapStateToProps(state){
+function mapStateToProps(state){  //state here is the application state
     //Whatever this function returns will show up as props inside of BookList
     return {
         books: state.books
@@ -40,6 +40,7 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
 
     //Whenever selectBook is called the result should be passed to all of our reducers
+    //dispatch takes all actions, acts as a funnel and ensures that action is passed through all reducers
     return bindActionCreators( {selectBook : selectBook}, dispatch);
 }
 
