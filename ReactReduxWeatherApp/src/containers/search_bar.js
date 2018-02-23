@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { fetchWeather } from '../actions/index'
 
-export default class SearchBar extends Component {
+class SearchBar extends Component {
 
     constructor(props){
         super(props);
@@ -8,6 +11,8 @@ export default class SearchBar extends Component {
         this.state = { term : '' }
 
         this.onInputChange = this.onInputChange.bind(this);  //bind the context so that onInputChange is available on 'this' context
+
+        this.onFormSubmit = this.onFormSubmit.bind(this); //bind the context so that onFormSubmit is available on 'this' context
     }
 
     onInputChange(event){
@@ -19,6 +24,9 @@ export default class SearchBar extends Component {
         event.preventDefault();   //Prevent submitting the form
 
         //Fetch weather data
+        this.props.fetchWeather(this.state.term);  //Make the AJAX request with the user's search term (city)
+
+        this.setState({term : ' '}); //Set the user input to empty after making the request
     }
 
     render(){
@@ -37,3 +45,9 @@ export default class SearchBar extends Component {
         );
     }
 }
+
+function mapDispatchToProps(dispatch){
+    return bindActionCreators({ fetchWeather }, dispatch);  //Ensure action passes through all reducers
+}
+
+export default connect(null, mapDispatchToProps)(SearchBar);
