@@ -3,10 +3,11 @@ import { Field, reduxForm } from 'redux-form';
 
 class PostsNew extends Component{
 
-    renderTitleField(field){  //field contains event handlers that we need to wire up JSX that we return
+    renderField(field){  //field contains event handlers that we need to wire up JSX that we return
         return (
-            <div>
-                <input 
+            <div className="form-group">
+                <label>{ field.label }</label>
+                <input className="form-control"
                     type="text"
                     { ...field.input } //communicate built in event handlers as props to Field component
                 />
@@ -14,12 +15,24 @@ class PostsNew extends Component{
         );
     }
 
+    
     render(){
         return (
             <form>
                 <Field 
+                    label="Title"
                     name="title"
-                    component={this.renderTitleField}
+                    component={this.renderField}
+                />
+                <Field 
+                    label="Tags"
+                    name="tags"
+                    component={this.renderField}
+                />
+                <Field
+                    label="Post Content"
+                    name="content"
+                    component={this.renderField}
                 />
             </form>
         );
