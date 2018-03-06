@@ -11,6 +11,7 @@ class PostsNew extends Component{
                     type="text"
                     { ...field.input } //communicate built in event handlers as props to Field component
                 />
+                {field.meta.error}
             </div>
         );
     }
@@ -25,8 +26,8 @@ class PostsNew extends Component{
                     component={this.renderField}
                 />
                 <Field 
-                    label="Tags"
-                    name="tags"
+                    label="Categories"
+                    name="categories"
                     component={this.renderField}
                 />
                 <Field
@@ -39,6 +40,31 @@ class PostsNew extends Component{
     }
 }
 
+function validate(values){
+    //console.log(values) --> { title : 'my post', categories : 'post', content:'nice post' }
+
+    const errors = {};
+
+    //Validate the inputs from 'values'
+    if(!values.title){
+        errors.title = "Enter a title";
+    }
+
+    if(!values.categories){
+        errors.categories = "Enter some categories";
+    }
+
+    if(!values.content){
+        errors.content = "Enter some content";
+    }
+
+
+    //If errors is empty, the form has no errors and can be submitted
+    //If errors has any properties, redux form assumes the form is invalid and cannot be submitted
+    return errors;
+}
+
 export default reduxForm({
+    validate : validate,  
     form : 'PostsNewForm' //needs to be unique if we do not want this form to share its application state with any other forms
 })(PostsNew);
