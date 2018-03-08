@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { createPost } from '../actions/index';
 
 class PostsNew extends Component{
 
@@ -26,6 +28,9 @@ class PostsNew extends Component{
     onSubmit(values){
         //this === component
         console.log(values);
+        this.props.createPost(values, () => {
+            this.props.history.push('/');   //callback function to navigate user
+        });  //call the action creator
     }
     
     render(){
@@ -85,4 +90,6 @@ function validate(values){
 export default reduxForm({
     validate : validate,  
     form : 'PostsNewForm' //needs to be unique if we do not want this form to share its application state with any other forms
-})(PostsNew);
+})(
+    connect(null, { createPost })(PostsNew)
+);
