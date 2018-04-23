@@ -6,6 +6,10 @@ const bodyParser = require('body-parser');
 const app        = express();
 
 //App setup
+//Middlewares
+app.use(morgan('combined'));
+app.use(bodyParser.json({type: '*/*'}));
+
 
 
 //Server setup
