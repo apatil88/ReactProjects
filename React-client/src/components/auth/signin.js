@@ -40,7 +40,7 @@ class Signin extends Component{
                     <Field 
                         name="password"
                         component={renderInput}
-                        type="password"
+                        type="text"
                     />
                 </fieldset>
 
