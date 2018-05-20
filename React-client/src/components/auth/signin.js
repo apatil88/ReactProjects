@@ -14,12 +14,24 @@ const renderInput = field => (
     </div>
 );
 
+
+
 class Signin extends Component{
 
     handleFormSubmit({email, password}){
         console.log(email,password);
         //Need to do something to log in user
         this.props.signinUser({email, password});
+    }
+
+    renderAlert(){
+        if(this.props.errorMessage){
+            return (
+                <div className="alert alert-danger">
+                    <strong>Oops!</strong> {this.props.errorMessage}
+                </div>
+            );
+        }
     }
 
     render(){
@@ -40,13 +52,20 @@ class Signin extends Component{
                     <Field 
                         name="password"
                         component={renderInput}
-                        type="text"
+                        type="password"
                     />
                 </fieldset>
 
+                {this.renderAlert()}
                 <button action="submit" className="btn btn-primary">Sign in</button>
             </form>
         )
+    }
+}
+
+function mapStateToProps(state){
+    return {
+        errorMessage: state.auth.error
     }
 }
 
@@ -54,5 +73,5 @@ export default reduxForm({
     form: 'signin',
     fields: ['email', 'password']
 })(
-    connect(null, actions)(Signin)
+    connect(mapStateToProps, actions)(Signin)
 );
